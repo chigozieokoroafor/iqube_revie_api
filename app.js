@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
 
 app.get("/api/reviews/apartment/:id", (req, res) => {
-    const appartment_review = Apartment.find(i => i.id === parseInt(req.params.id));
+    const appartment_review = Apartment.find(i => i.ar_id === parseInt(req.params.id));
     if (!appartment_review){
         res.status(404).send({
             "message":"review not available"
