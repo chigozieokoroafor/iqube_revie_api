@@ -150,21 +150,24 @@ app.post("/signup", (req, res) => {
     } else if (email.includes(".com") != true ){
         res.status(400).send({message:"invalid email", success:false})
     }
+    const user = users.find(i => i.email == email);
+    if (!user){
+        if (password == undefined || password.length < 8) {
+            res.status(400).send({message:"password must not be less than 8 characters", success:false})
+        }
 
-    if (password == undefined || password.length < 8) {
-        res.status(400).send({message:"password must not be less than 8 characters", success:false})
+        acc = {
+            email:email,
+            password:password,
+            username:username,
+            id : users.length + 1
+        }
+
+        users.push(acc)
+        res.status(200).send({message:"account created", success:true})
+    } else {
+        res.status(400).send({message:"user with email exists", success:false})
     }
-
-    acc = {
-        email:email,
-        password:password,
-        username:username,
-        id : users.length + 1
-    }
-
-    users.push(acc)
-    res.status(200).send({message:"account created", success:true})
-
 
 
 
