@@ -27,7 +27,7 @@ const Landlord = [
     
 ]
 
-app.get('/', (req, res) => {
+app.get('/api/reviews/apartment', (req, res) => {
     res.send(Apartment)
 });
 
@@ -50,6 +50,8 @@ app.get("/api/reviews/apartment/:id", (req, res) => {
 app.post("/api/upload/landlord_review/:apartment_id", (req, res) => {
     //console.log(req.body)
     //console.log(typeof(req.body.name))
+    const token = req.headers.jwt
+
     if (!token){
         res.status(400).send({message:"jwt key missing", success:false})
     } // create a token expiry check here
